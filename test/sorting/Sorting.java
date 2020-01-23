@@ -88,26 +88,40 @@ public class Sorting {
 		}
 	}
 	
-	public static int binary(int [] arr, int key, int l, int r) {
-		
-		
-		
+	public static int binarySearch(int[] arr, int key, int l, int r) {
+
+		if (r > l) {
+			int middle = (r - l) / 2 + l;
+
+			if (arr[middle] > key) {
+				return binarySearch(arr, key, l, middle);
+			} else if (arr[middle] < key) {
+				middle++;
+				return binarySearch(arr, key, middle, r);
+			} else {
+				return middle;
+			}
+		}
 		return -1;
 	}
 	
-	public static int binarySearch(int [] arr, int key) {
-		
-		boolean found = false;
-		if(key == arr[arr.length/2]) {
-			return arr.length/2;
+	public static void bubbleBowl(int[] arr) {
+		for(int i = 0; i < arr.length; i++) {
+			for(int j = arr.length-1; j > i; j--) {
+				if(arr[j] < arr[j-1]) {
+					int temp = arr[j];
+					arr[j] = arr[j-1];
+					arr[j-1] = temp;
+				}
+			}
 		}
-		while(found == false)
-		
-		return -1;
 	}
+	
+	
 	
 	public static void main(String[] args) { 
 		int [] arr = {2,3,9,1,1,3,1};
+		int [] jenny = {8,6,7,5,3,0,9};
 		System.out.println("Original array:\t\t" + Arrays.toString(arr));
 		insertionSort(arr);
 		System.out.println("Insertion sort:\t\t" + Arrays.toString(arr));
@@ -119,5 +133,10 @@ public class Sorting {
 		System.out.println("Binary sum:\t\t" + Arrays.toString(sumBinary(arr1,arr2)));
 		mergeSort(arr, 0, arr.length-1);
 		System.out.println("Merge sort:\t\t" + Arrays.toString(arr));
+		System.out.println("Where is 4 in the array?\t" + binarySearch(arr,4,0,arr.length));
+		System.out.println("Where is 2 in the array?\t" + binarySearch(arr,2,0,arr.length));
+		System.out.println("Unsorted array:\t\t" + Arrays.toString(jenny));	
+		bubbleBowl(jenny);
+		System.out.println("Bubble sort:\t\t" + Arrays.toString(jenny));
 	}
 }
