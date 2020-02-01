@@ -5,7 +5,7 @@ public class BigInt {
 	
 	public static void main(String[] args) { 
 
-			int i = 10240;
+			int i = 1280;
 			Random rand1 = new Random();
 			Random rand2 = new Random();
 			Random rand3 = new Random();
