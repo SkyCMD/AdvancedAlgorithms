@@ -1,13 +1,14 @@
+import java.math.BigInteger;
 import java.util.Arrays;
 
 public class Algs {
 
-	public static int euclid (int a, int b) {
+	public static BigInteger euclid (BigInteger a, BigInteger b) {
 		
-		if(b==0) {
+		if(b.equals(new BigInteger("0"))) {
 			return a;
 		} else {
-			return euclid(b, a%b);
+			return euclid(b, a.mod(b));
 		}
 	}
 	
@@ -27,10 +28,44 @@ public class Algs {
 		return arr;
 	}
 	
-	public static void main(String[] args) {
+	public static int modularExp(int a, int b, int n) {
 		
-		System.out.println(euclid(110,33));
-		System.out.println(Arrays.toString(euclidExtended(899,493)));
+		int d = 1;
+		int[] arr = (intToBinary(b));
+		for(int i = 0; i < arr.length; i++) {
+			d = (d*d)%n;
+			if(arr[i] == 1) {
+				d = (d*a)%n;
+			}
+		}
+		return d;
+	}
+	
+	public static int[] intToBinary(int a) {
+		String temp = Integer.toBinaryString(a);
+		String[] bin = temp.split("");
+		int[] arr = new int[temp.length()];
+		for(int i = 0; i < temp.length(); i++) {
+			arr[i] = Integer.parseInt(bin[i]);
+		}
+		return arr;
+	}
+	
+	public static void pseudoprime(int n) {
+		if(modularExp(2,n-1,n) != 1) {
+			System.out.println(n + " is composite.");
+		} else {
+			System.out.println(n + " is probably prime.");
+		}
+	}
+	
+	public static void main(String[] args) {
+		BigInteger a = new BigInteger("110");
+		BigInteger b = new BigInteger("33");
+		System.out.println("euclid gcd of " + a.toString() + " and " + b.toString() + " is " + euclid(a, b));
+		System.out.println("Extended-Euclid output of 889 and 493 is " + Arrays.toString(euclidExtended(899,493)));
+		System.out.println("(7^560)%561 is " + modularExp(7, 560, 561));
+		pseudoprime(341);
 
 	}
 
