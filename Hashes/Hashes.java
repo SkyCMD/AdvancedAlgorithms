@@ -18,6 +18,7 @@ public class Hashes {
 			String str = inf.next();
 			str = str.replaceAll("[^a-zA-Z0-9]", "");
 			ArrayList<String> a = new ArrayList<String>();
+			
 			long startTime = System.nanoTime();
 			while(inf.hasNext()){
 				if(a.contains(str)) {
@@ -36,14 +37,15 @@ public class Hashes {
 			long totalTime = endTime - startTime;
 			double seconds = (double)totalTime/1000000000;
 			System.out.println("ArrayList took "+ seconds + " seconds.");
+			System.out.println("Number of words in ArrayList: " + sanityCheck);
+			
 			inf = new Scanner(new File(list[i]));
 			str = inf.next();
 			str = str.replaceAll("[^a-zA-Z0-9]", "");
 			
 			HashMap<String,Integer> h = new HashMap<String,Integer>();
-			startTime = System.nanoTime();
-			System.out.println("Number of words in ArrayList: " + sanityCheck);
 			sanityCheck = 0;
+			startTime = System.nanoTime();
 			while(inf.hasNext()){
 				if(h.containsKey(str)) {
 					str = inf.next();
