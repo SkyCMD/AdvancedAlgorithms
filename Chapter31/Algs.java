@@ -62,11 +62,13 @@ public class Algs {
 	public static void main(String[] args) {
 		BigInteger a = new BigInteger("110");
 		BigInteger b = new BigInteger("33");
-		System.out.println("euclid gcd of " + a.toString() + " and " + b.toString() + " is " + euclid(a, b));
+		System.out.println("euclid gcd of " + a.toString() + " " + "and " + b.toString() + " is " + euclid(a, b));
 		System.out.println("Extended-Euclid output of 889 and 493 is " + Arrays.toString(euclidExtended(899,493)));
 		System.out.println("(7^560)%561 is " + modularExp(7, 560, 561));
+	
+		pseudoprime(1001);
+		pseudoprime(1009);
 		pseudoprime(341);
 
 	}
-
 }
