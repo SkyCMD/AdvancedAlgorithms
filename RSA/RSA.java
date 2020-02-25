@@ -1,4 +1,11 @@
+import java.io.IOException;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class RSA {
@@ -50,7 +57,7 @@ public class RSA {
 		}
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		boolean isPrime = false;
 		BigInteger p = new BigInteger(1024, new Random());
 		BigInteger q = new BigInteger(1024, new Random());
@@ -72,17 +79,29 @@ public class RSA {
 		
 		BigInteger n = p.multiply(q);
 		BigInteger e = new BigInteger("65537");
-		BigInteger d = euclidExtended(e,n)[1];
+		BigInteger phi = (p.subtract(BigInteger.ONE)).multiply(q.subtract(BigInteger.ONE));
+		BigInteger d = euclidExtended(e,phi)[1];
+//		BigInteger d = e.modInverse((p.subtract(BigInteger.ONE)).multiply(q.subtract(BigInteger.ONE)));
+		if(d.signum() == -1) {
+			d = d.add(phi);
+		}
 		BigInteger[] P = {e,n};
 		BigInteger[] S = {d,n};
 		System.out.println("e = " + e.toString());
 		System.out.println("d = " + d.toString());
 		System.out.println("n = " + n.toString());		
 		
+		Path filee = Paths.get("e.txt");
+		Path filen = Paths.get("n.txt");
+		Path filed = Paths.get("d.txt");
+		List<String> lines = Arrays.asList(e.toString());
+		Files.write(filee, lines, StandardCharsets.UTF_8);
+		lines = Arrays.asList(n.toString());
+		Files.write(filen, lines, StandardCharsets.UTF_8);
+		lines = Arrays.asList(d.toString());
+		Files.write(filed, lines, StandardCharsets.UTF_8);
 		
-//		pseudoprime(new BigInteger("1001"));
-//		pseudoprime(new BigInteger("1009")); good gravy it works hallelujah
-//		pseudoprime(new BigInteger("341")); 
+
 
 	}
 
