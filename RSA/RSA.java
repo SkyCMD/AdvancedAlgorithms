@@ -58,29 +58,34 @@ public class RSA {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		boolean isPrime = false;
-//		BigInteger p = new BigInteger(1024, new Random());
-//		BigInteger q = new BigInteger(1024, new Random());
-		BigInteger p = new BigInteger("7");
-		BigInteger q = new BigInteger("11");
+		BigInteger p = new BigInteger(1024, new Random());
+		BigInteger q = new BigInteger(1024, new Random());
+//		BigInteger p = new BigInteger("101");
+//		BigInteger q = new BigInteger("103");    //for testing
 		
-//		while(isPrime == false) {
-//			isPrime = pseudoprime(p);
-//			if(isPrime) {
-//				isPrime = false; 
-//				while(isPrime == false && (p.equals(q) == false)) {
-//					isPrime = pseudoprime(q);
-//					if(isPrime) {
-//						break;
-//					}
+//		while(isPrime ) {    //shorter code, doesn't work
+//			if(pseudoprime(p)) { 
+//				while(pseudoprime(q) == false && (p.equals(q) == false)) {
 //					q = new BigInteger(1024, new Random());
 //				}
 //			}
 //			p = new BigInteger(1024, new Random());
 //		}
+		while(true) {
+			if(pseudoprime(p))
+				break;
+			p = new BigInteger(1024, new Random());
+		}
+		while(true) {
+			if(pseudoprime(q))
+				if(q.equals(p) == false)
+					break;
+			q = new BigInteger(1024, new Random());
+		}
 		
 		BigInteger n = p.multiply(q);
-		BigInteger e = new BigInteger("13");
+//		BigInteger e = new BigInteger("13");     for testing
+		BigInteger e = new BigInteger("65537");
 		BigInteger phi = (p.subtract(BigInteger.ONE)).multiply(q.subtract(BigInteger.ONE));
 		BigInteger d = euclidExtended(e,phi)[1];
 //		BigInteger d = e.modInverse((p.subtract(BigInteger.ONE)).multiply(q.subtract(BigInteger.ONE)));
